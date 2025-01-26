@@ -1,0 +1,12 @@
+.primaryMenu {
+  position: absolute;
+  top: 40%;
+  left: 50px;
+  width: 100px;
+  height: fit-content;
+  border-radius: 40%;
+  background-color: #89847e;
+}
+
+.primaryMenu-item {
+}
