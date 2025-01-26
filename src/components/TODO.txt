@@ -1,0 +1,52 @@
+Implementar el sidebar.
+    Este sidebar debe mostrar todas las formas que el usuario puede agregar (rectangles, circles, images, etc.).
+    Cuando un usuario le dé click a alguna forma, se debe crear una nueva forma del mismo tipo en el canvas, con valores default.
+    Este sidebar no debe estar quemado: si existen 10 vistas diferentes, debe haber 10 elementos. Sin embargo,
+    si elimino alguna de las vistas del proyecto, su respectivo elemento en el menú debe desaparecer. 
+    Es decir, no debemos tener 2 fuentes de verdad (elementos en el sidebar que no existen como vistas, o vistas que no 
+    se muestran en el sidebar), sino una única fuente de verdad.
+
+Implementar el contexmenu.
+    Cuando el usuario de click derecho en cualquier parte del canvas, se debe mostrar un menú.
+    Este menú debe tener opciones como:
+        - Copiar
+        - Duplicar
+        - Pegar
+        - Eliminar
+        - Agrupar
+        - Desagrupar
+        - Enviar al fondo
+        - Traer adelante
+    Además, cada acción del menú debe tener un comando de teclado (con su respectiva UI que le permita saber al usuario que el comando existe).
+    Por ahora, el único botón que debe funcionar es el de agrupar (sin que funcione el comando, sólo el click).
+    Referencia: https://miro.medium.com/v2/resize:fit:1400/1*D1qfqhmAVpzCIbRZKeHrKg.png
+
+
+Agrupar.
+    Esta opción sólo debe estar disponible en el context menu cuando el usuario tenga por lo menos dos vistas seleccionadas.
+    Al darle click a esta opción, se debe crear un grupo que contenga todas las vistas seleccionadas.
+    El tamaño de este grupo está dado por el rectángulo más pequeño que pueda contener a todas las vistas seleccionadas.
+
+Desagrupar.
+    Por ahora, la única lógica relacionada con esta opción, es que solamente debe salir si la vista seleccionada es un
+    grupo.
+    Por ahora no se implementa.
+
+Selección múltiple.
+    Se le debe permitir al usuario seleccionar varias vistas.
+    El usuario puede hacer esto de dos formas:
+        1. Haciendo mouse-down en un espacio vacío del canvas en un punto P1, y, sin soltar, arrastrando el mouse hasta
+           el punto P2, para luego hacer mouse-up. Mientras el usuario mueve el mouse, se le debe mostrar el rectángulo de
+           selección, y, una vez que el usuario haga mouse-up, todas las vistas que estén dentro de este rectángulo deben
+           ser seleccionadas.
+        2. Dándole click a una vista y, a continuación, dejando presionada la tecla control (o command, en mac), para luego,
+           sin dejar de presionar la tecla, darle click a otra vista, y a otra, y a otra... como resultado, todas las vistas
+           a las que se les dé click (con control presionado) deben quedar seleccionadas.
+    A la vez, cuando el usuario le dé click a otra vista que no está seleccionada, las vistas que actualmente están seleccionadas
+    deben quedar deseleccionadas. 
+
+
+Luisa dice: Se debe agregar el error del rect: un mecanismo que cree un UID para cada vista, de forma que no se pueda tener
+una llave que sea diferente al id de la vista en el estado.
+
+
