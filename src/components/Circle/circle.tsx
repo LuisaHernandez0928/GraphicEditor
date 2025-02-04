@@ -1,7 +1,14 @@
-import { CanvasElementProps, EViewType } from '@globalTypes/types';
+import { CanvasElementProps, EViewType, IShapeCircle } from '@globalTypes/types';
 
-export function CircleComponent(props: CanvasElementProps<EViewType.CIRCLE>) {
-  const { data, isSelected, isHovered } = props;
+interface CircleComponentType extends React.FC<CanvasElementProps<EViewType.CIRCLE>> {
+  defaultData: () => IShapeCircle;
+}
+
+export const CircleComponent: CircleComponentType = ({
+ data, 
+ isSelected,
+ isHovered 
+}) => {
   return (
     <div
       style={{
@@ -21,3 +28,11 @@ export function CircleComponent(props: CanvasElementProps<EViewType.CIRCLE>) {
     />
   );
 }
+
+CircleComponent.defaultData = (): IShapeCircle => ({
+  id: 'dummy-circle',
+  viewType: EViewType.CIRCLE,
+  rect: { top: 130, left: 65, width: 40, height: 40 },
+  radius: '50%',
+  fillColor: 'red',
+});

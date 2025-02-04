@@ -1,12 +1,22 @@
 .primaryMenu {
-  position: absolute;
-  top: 40%;
-  left: 50px;
   width: 100px;
   height: fit-content;
-  border-radius: 40%;
-  background-color: #89847e;
+  list-style: none;
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  margin-top: 1rem;
 }
 
-.primaryMenu-item {
+.previewMenu {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
 }

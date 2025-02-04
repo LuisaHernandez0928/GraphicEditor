@@ -28,6 +28,7 @@
     "paths": {
       "@globalUtils/*": ["./src/utils/*"],
       "@globalTypes/*": ["./src/types/*"],
+      "@factories/*": ["./src/factories/*"],
       "@routers/*": ["./src/routers/*"],
       "@assets/*": ["./src/assets/*"],
       "@constants/*": ["./src/constants/*"],

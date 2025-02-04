@@ -7,7 +7,7 @@ import Editor from '@pages/editor/editor';
 import Landing from '@pages/landing';
 
 import { store } from '@src/store';
-
+import './registry/registerComponents';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(

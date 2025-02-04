@@ -1,9 +1,10 @@
-import { CanvasElementProps, EViewType } from '@globalTypes/types';
+import { CanvasElementProps, EViewType, ITypography } from '@globalTypes/types';
 
-export function TypographyComponent(
-  props: CanvasElementProps<EViewType.TYPOGRAPHY>
-) {
-  const { data, isSelected, isHovered } = props;
+interface TypographyComponentType extends React.FC<CanvasElementProps<EViewType.TYPOGRAPHY>> {
+  defaultData: () => ITypography;
+};
+
+export const TypographyComponent: TypographyComponentType = ({ data, isSelected, isHovered }) => {
   return (
     <p
       style={{
@@ -22,9 +23,26 @@ export function TypographyComponent(
         top: data.rect.top,
         left: data.rect.left,
         width: 'fit-content',
+        border: '1px solid black',
+        padding: '0.3rem',
       }}
     >
       {data.content}
     </p>
   );
 }
+TypographyComponent.defaultData = (): ITypography => ({
+  id: 'dummy-typography',
+  viewType: EViewType.TYPOGRAPHY,
+  rect: { top: 395, left: 65, width: 100, height: 50 },
+  content: 'Text',
+  fontFamily: 'Arial',
+  fontSize: '1rem',
+  color: 'black',
+  textAlign: 'left',
+  lineHeight: 1.5,
+  letterSpacing: 0,
+  fontWeight: 'normal',
+  fontStyle: 'normal',
+  textDecoration: 'none',
+});

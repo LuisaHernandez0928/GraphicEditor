@@ -1,39 +1,61 @@
-import BackupTableRoundedIcon from '@mui/icons-material/BackupTableRounded';
-import CloudUploadRoundedIcon from '@mui/icons-material/CloudUploadRounded';
-import CreateNewFolderRoundedIcon from '@mui/icons-material/CreateNewFolderRounded';
-import DrawRoundedIcon from '@mui/icons-material/DrawRounded';
-import InterestsRoundedIcon from '@mui/icons-material/InterestsRounded';
-import TitleRoundedIcon from '@mui/icons-material/TitleRounded';
 import React from 'react';
+import { EViewType } from '@globalTypes/types';
+import { componentRegistry } from '../../registry/registry';
 
-import { ESidebarPrimaryMenu } from '@globalTypes/types';
+import styles from './index.module.css';
 
-const SideBar = (): React.ReactElement => {
-  const PRIMARY_SIDEBAR: {
-    [K in ESidebarPrimaryMenu]: React.ReactElement;
-  } = {
-    [ESidebarPrimaryMenu.TEMPLATES]: <BackupTableRoundedIcon />,
-    [ESidebarPrimaryMenu.ELEMENTS]: <InterestsRoundedIcon />,
-    [ESidebarPrimaryMenu.TEXT]: <TitleRoundedIcon />,
-    [ESidebarPrimaryMenu.DRAW]: <DrawRoundedIcon />,
-    [ESidebarPrimaryMenu.UPLOAD]: <CloudUploadRoundedIcon />,
-    [ESidebarPrimaryMenu.PROJECTS]: <CreateNewFolderRoundedIcon />,
-  };
+// A simple utility to capitalize the view type name.
+const formatViewType = (viewType: EViewType): string =>
+  viewType.charAt(0).toUpperCase() + viewType.slice(1);
 
-  const primaryMenu: ESidebarPrimaryMenu[] = [
-    ESidebarPrimaryMenu.TEMPLATES,
-    ESidebarPrimaryMenu.ELEMENTS,
-    ESidebarPrimaryMenu.TEMPLATES,
-    ESidebarPrimaryMenu.DRAW,
-    ESidebarPrimaryMenu.UPLOAD,
-    ESidebarPrimaryMenu.PROJECTS,
-  ];
-  const iconListPrimaryMenu = primaryMenu.map((view, index) => (
-    <li key={`${index}-${view}`} className="primaryMenu-item">
-      {PRIMARY_SIDEBAR[view]}
-    </li>
-  ));
-  return <ul className="primaryMenu">{iconListPrimaryMenu}</ul>;
+
+export const Sidebar: React.FC = () => {
+  // Retrieve all registered view types.
+  const registryEntries = componentRegistry.getAll();
+  const registeredViewTypes = Object.keys(registryEntries) as EViewType[];
+
+  return (
+    <aside className={styles.sidebar}>
+      <h4>Available Shapes</h4>
+      <ul>
+        {registeredViewTypes.map((viewType) => {
+          console.log(viewType);
+          // Retrieve the component from the registry.
+          const ComponentToRender = componentRegistry.get(viewType);
+          if (!ComponentToRender) {
+            return null;
+          }
+
+          // Check if the component provides defaultData.
+          let dummyData = null;
+          if (
+            ComponentToRender.defaultData &&
+            typeof ComponentToRender.defaultData === 'function'
+          ) {
+            dummyData = ComponentToRender.defaultData();
+          } else {
+            console.warn(
+              `Component for viewType "${viewType}" does not provide defaultData.`
+            );
+            return null;
+          }
+
+          return (
+            <li key={viewType} style={{ marginBottom: '1.9rem', listStyle: 'none' }}>
+              <div className={styles.previewMenu}>
+                <div>{formatViewType(viewType)}</div>
+                <ComponentToRender
+                  data={dummyData}
+                  isSelected={false}
+                  isHovered={false}
+                />
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </aside>
+  );
 };
 
-export default SideBar;
+export default Sidebar;

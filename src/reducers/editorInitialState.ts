@@ -49,8 +49,8 @@ const mElement3: IImage = {
     left: 270,
     top: 90,
   },
-  src:
-    'https://www.shutterstock.com/image-illustration/david-street-style-graphic-designtextile-600nw-2265632523.jpg',
+  src: 'https://www.shutterstock.com/image-illustration/david-street-style-graphic-designtextile-600nw-2265632523.jpg',
+  borderColor: 'black',
 };
 
 const mElement4: ITypography = {

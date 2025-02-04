@@ -1,7 +1,7 @@
 Implementar el sidebar.
     Este sidebar debe mostrar todas las formas que el usuario puede agregar (rectangles, circles, images, etc.).
     Cuando un usuario le dé click a alguna forma, se debe crear una nueva forma del mismo tipo en el canvas, con valores default.
-    Este sidebar no debe estar quemado: si existen 10 vistas diferentes, debe haber 10 elementos. Sin embargo,
+    Este sidebar no debe estar quemado: si existen 10 formas diferentes, debe haber 10 elementos. Sin embargo,
     si elimino alguna de las vistas del proyecto, su respectivo elemento en el menú debe desaparecer. 
     Es decir, no debemos tener 2 fuentes de verdad (elementos en el sidebar que no existen como vistas, o vistas que no 
     se muestran en el sidebar), sino una única fuente de verdad.

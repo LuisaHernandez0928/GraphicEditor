@@ -22,9 +22,11 @@ export enum ECursorType {
 export enum EViewType {
   CIRCLE = 'circle',
   RECTANGLE = 'rectangle',
+  TRIANGLE = 'triangle',
   IMAGE = 'image',
   GROUP = 'group',
   TYPOGRAPHY = 'typography',
+  TRAPEZOID = 'trapezoid',
 }
 
 export interface IPoint {
@@ -71,6 +73,7 @@ export interface IImage extends IView {
   alt?: string;
   mask?: IRect;
   opacity?: number;
+  borderColor: string;
 }
 
 export interface ITypography extends IView {
@@ -104,12 +107,21 @@ export interface IShapeRectangle extends IShape {
   viewType: EViewType.RECTANGLE;
 }
 
+export interface IShapeTriangle extends IShape {
+  viewType: EViewType.TRIANGLE;
+  borderLeft: string;
+	borderRight: string;
+	borderBottom: string;
+}
+
 export type TViewUnion =
   | IShapeCircle
   | IShapeRectangle
+  | IShapeTriangle
   | IImage
   | IGroup
-  | ITypography;
+  | ITypography
+
 
 export interface ILayer {
   views: Record<string, TViewUnion>;
@@ -119,16 +131,21 @@ export type DataFromViewType<T extends EViewType> = T extends EViewType.CIRCLE
   ? IShapeCircle
   : T extends EViewType.RECTANGLE
   ? IShapeRectangle
+  : T extends EViewType.TRIANGLE
+  ? IShapeTriangle
   : T extends EViewType.IMAGE
   ? IImage
   : T extends EViewType.GROUP
   ? IGroup
+  : T extends EViewType.TRAPEZOID
+  ? IImage
   : ITypography;
 
 export interface CanvasElementProps<T extends EViewType> {
   data: DataFromViewType<T>;
   isSelected: boolean;
   isHovered: boolean;
+  defaultData?: () => DataFromViewType<T>;
 }
 
 export enum ESidebarPrimaryMenu {

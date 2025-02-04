@@ -1,9 +1,13 @@
-import { CanvasElementProps, EViewType } from '@globalTypes/types';
+import { CanvasElementProps, EViewType, IShapeRectangle } from '@globalTypes/types';
 
-export function RectangleComponent(
-  props: CanvasElementProps<EViewType.RECTANGLE>
-) {
-  const { data, isSelected, isHovered } = props;
+interface ReactangleComponentType extends React.FC<CanvasElementProps<EViewType.RECTANGLE>> {
+  defaultData: () => IShapeRectangle;
+}
+export const RectangleComponent: ReactangleComponentType = ({
+ data, 
+ isSelected,
+ isHovered 
+}) => {
   return (
     <div
       style={{
@@ -21,3 +25,15 @@ export function RectangleComponent(
     />
   );
 }
+
+RectangleComponent.defaultData = (): IShapeRectangle => ({
+  id: 'dummy-rectangle',
+  viewType: EViewType.RECTANGLE,
+  rect: { top: 190, left: 65, width: 40, height: 40 },
+  fillColor: 'red',
+  borderRadius: '0',
+  borderColor: '#000000',
+  borderSize: '1px',
+  borderType: 'solid',
+});
+

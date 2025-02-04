@@ -1,31 +1,22 @@
 import React from 'react';
-
 import { CanvasElementProps, EViewType } from '@globalTypes/types';
-
-import { CircleComponent } from '@components/Circle/circle';
-import { GroupComponent } from '@components/Group/group';
-import { ImageComponent } from '@components/Image/image';
-import { RectangleComponent } from '@components/Rectangle/rectangle';
-import { TypographyComponent } from '@components/Typography/typography';
+import { componentRegistry } from '../../registry/registry'; // adjust the import path as needed
 
 export function CanvasElement<T extends EViewType>(
   props: CanvasElementProps<T>
 ) {
   const { data, isSelected, isHovered } = props;
 
-  const COMPONENT_MAP: {
-    [K in EViewType]: React.ComponentType<CanvasElementProps<K>>;
-  } = {
-    [EViewType.CIRCLE]: CircleComponent,
-    [EViewType.RECTANGLE]: RectangleComponent,
-    [EViewType.IMAGE]: ImageComponent,
-    [EViewType.GROUP]: GroupComponent,
-    [EViewType.TYPOGRAPHY]: TypographyComponent,
-  };
-
-  const ComponentToRender = COMPONENT_MAP[data.viewType] as React.ComponentType<
+  // Look up the component for the given viewType using the registry.
+  const ComponentToRender = componentRegistry.get(data.viewType) as React.ComponentType<
     CanvasElementProps<T>
   >;
+
+  // If no component is registered for the given view type, return null or a fallback.
+  if (!ComponentToRender) {
+    console.warn(`No component registered for viewType: ${data.viewType}`);
+    return null;
+  }
 
   return (
     <ComponentToRender
@@ -35,3 +26,4 @@ export function CanvasElement<T extends EViewType>(
     />
   );
 }
+
